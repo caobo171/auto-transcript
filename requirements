@@ -1,2 +1,4 @@
 SpeechRecognition
 pydub
+pylint
+editdistance
