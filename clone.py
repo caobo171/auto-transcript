@@ -31,7 +31,7 @@ chunks = round(file_duration/CHUNK_DURATION)
 
 # f = open("text2.txt", "r")
 
-f = open("test.txt", "r" , encoding="utf8")
+f = open("text2.txt", "r" , encoding="utf8")
 origin_script_text = f.read()
 script_text = origin_script_text.replace('.','',1000).replace('"','',10000).replace(':','',1000).replace(',','',1000).replace('“','',1000).replace('”','',1000)
 script_text = script_text.split()
@@ -74,6 +74,7 @@ for text in text_array:
             diff = 0 
             for j in range(0, len_r_text):
                 if(checkHidden(compare_script[j])):
+                    print('vo day roi')
                     if(len(compare_script[j]) != len(r_text[j])):
                         diff = diff + 1
                     else :
@@ -87,56 +88,37 @@ for text in text_array:
                 min_diff = diff
                 minIndex = i
         index_array.append(minIndex)
+        print(script_text[minIndex: minIndex + len_r_text] + ' vs ' + r_text)
 
-
-
-def check_increase_list(list_value):
-    if(len(list_value) == 1): 
-        return True
-    for i in range(1, len(list_value)):
-        if(list_value[i] < list_value[i-1] and list_value[i] != -1):
-            return False
-    return True
-
-last_result = [-1]
-for i in range(1, len(index_array)- 1):
-    if(index_array[i] == -1):
-        last_result.append(index_array[i])
+last_result = []
+increasing_before = 0
+increasing_after = 0
+for i in range(0, len(index_array)):
+    if( i == 0 and index_array[i+1] < index_array[i] ):
+        last_result.append(-1)
+    elif (i == len(index_array) - 1 and index_array[i-1] > index_array[i]):
+        last_result.append(-1)
+    elif (index_array[i-1] > index_array[i] and index_array[i+1] < index_array[i]):
+        last_result.append(-1)
     else:
-        is_increase_list = check_increase_list(index_array[i+1 : min(i+3, len(index_array)-1) ])
-        if( is_increase_list and index_array[i] > index_array[i+1] and index_array[i+1] > index_array[i-1]):
-            last_result.append(-1)
-        elif( is_increase_list and index_array[i] < index_array[i-1] and index_array[i+1] > index_array[i-1]):
-            last_result.append(-1)
-        else:
-            last_result.append(index_array[i])
-
-if(index_array[len(index_array)-1] > index_array[len(index_array)-2]):
-    last_result.append(index_array[len(index_array)-1])
-else:
-    last_result.append(-1)
+        last_result.append(index_array[i])
 
 
-
-print(index_array, len(index_array))
-print(last_result , len(last_result))
-
-
+print(last_result)
 result = ''
+current_index = 0
 for  i in range(0, len(script_text)) :
 
 
     # if(current_index >= len(index_array)): 
     #     break
     
-    for j, index in enumerate(last_result):
+    for j, index in enumerate(index_array):
         if(i == index):
-            result = result + '[{}]'.format(j * CHUNK_DURATION , index)
-            break
-        
+            result += '[{}]'.format(j * CHUNK_DURATION)
     result = result +  script_text[i] + ' '
     
-print(result)
+
             
     
 # print('done !!')
