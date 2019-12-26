@@ -33,7 +33,7 @@ chunks = round(file_duration/CHUNK_DURATION)
 
 f = open("test.txt", "r" , encoding="utf8")
 origin_script_text = f.read()
-script_text = origin_script_text.replace('.','',1000).replace('"','',10000).replace(':','',1000).replace(',','',1000).replace('“','',1000).replace('”','',1000)
+script_text = origin_script_text.replace('.','',1000).replace('"','',10000).replace(':','',1000).replace(',','',1000).replace('“','',1000).replace('”','',1000).replace("&#39;","'",1000)
 script_text = script_text.split()
 
 print(script_text)
@@ -46,7 +46,9 @@ for i in range(0, chunks):
                 duration= min(CHUNK_DURATION, file_duration- CHUNK_DURATION * i),
                 offset= CHUNK_DURATION * i
             )
+            
             text = r.recognize_google(audio)
+            print(text)
             r_text = ' '.join(text.split(' '))
       
                 
