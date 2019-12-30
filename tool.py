@@ -6,6 +6,8 @@ from pydub import AudioSegment
 
 import editdistance
 
+from longest_subsequence import LIS
+
 
 def checkHidden(text):
     for i in range(0, len(text)):
@@ -92,32 +94,34 @@ for text in text_array:
 
 
 
-def check_increase_list(list_value):
-    if(len(list_value) == 1): 
-        return True
-    for i in range(1, len(list_value)):
-        if(list_value[i] < list_value[i-1] and list_value[i] != -1):
-            return False
-    return True
+# def check_increase_list(list_value):
+#     if(len(list_value) == 1): 
+#         return True
+#     for i in range(1, len(list_value)):
+#         if(list_value[i] < list_value[i-1] and list_value[i] != -1):
+#             return False
+#     return True
 
-last_result = [-1]
-for i in range(1, len(index_array)- 1):
-    if(index_array[i] == -1):
-        last_result.append(index_array[i])
-    else:
-        is_increase_list = check_increase_list(index_array[i+1 : min(i+3, len(index_array)-1) ])
-        if( is_increase_list and index_array[i] > index_array[i+1] and index_array[i+1] > index_array[i-1]):
-            last_result.append(-1)
-        elif( is_increase_list and index_array[i] < index_array[i-1] and index_array[i+1] > index_array[i-1]):
-            last_result.append(-1)
-        else:
-            last_result.append(index_array[i])
+# last_result = [-1]
+# for i in range(1, len(index_array)- 1):
+#     if(index_array[i] == -1):
+#         last_result.append(index_array[i])
+#     else:
+#         is_increase_list = check_increase_list(index_array[i+1 : min(i+3, len(index_array)-1) ])
+#         if( is_increase_list and index_array[i] > index_array[i+1] and index_array[i+1] > index_array[i-1]):
+#             last_result.append(-1)
+#         elif( is_increase_list and index_array[i] < index_array[i-1] and index_array[i+1] > index_array[i-1]):
+#             last_result.append(-1)
+#         else:
+#             last_result.append(index_array[i])
 
-if(index_array[len(index_array)-1] > index_array[len(index_array)-2]):
-    last_result.append(index_array[len(index_array)-1])
-else:
-    last_result.append(-1)
+# if(index_array[len(index_array)-1] > index_array[len(index_array)-2]):
+#     last_result.append(index_array[len(index_array)-1])
+# else:
+#     last_result.append(-1)
 
+
+last_result = LIS(index_array)
 
 
 print(index_array, len(index_array))
@@ -140,5 +144,3 @@ for  i in range(0, len(script_text)) :
     
 print(result)
             
-    
-# print('done !!')
