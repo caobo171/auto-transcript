@@ -85,7 +85,8 @@ def googleAutoTranscript(mp3_file , origin_script_text , offset= 0, chunks = 5 ,
             index_array.append(minIndex)
 
     last_result = LIS(index_array)
-
+    print(temp_file_path)
+    os.remove(temp_file_path)
 
     ## concatenate string array to result
     result = ''
@@ -165,7 +166,7 @@ def googleAutoTranscriptV2(mp3_file , origin_script_text , offset= 0, chunks = 5
             index_array.append(minIndex)
 
     last_result = LIS(index_array)
-
+    os.remove(temp_file_path)
 
     ## concatenate string array to result
     result = ''
