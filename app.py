@@ -4,7 +4,7 @@ from tool import googleAutoTranscript, googleAutoTranscriptV2
 app = Flask(__name__)
 @app.route('/')
 def index():
-    return "<h1>Welcome to our server !!</h1>"
+    return "<h1>Welcome to our server ffmpeg !!</h1>"
 @app.route('/api/file' , methods=["POST"])
 def test():
     file = request.files['file']
